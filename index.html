@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+    <head>
+        <title>View - Indicadores - Indústria Bandeirante de Plásticos</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="js/jquery.min.js"></script>            
+    </head>
+    <body>
+         <form action="php/control/controller.php" method="POST">
+                <label>Escolha o Ano</label>
+                <select name="anoGrafico" id="anoGrafico">
+                    <option value="" selected="selected">Escolha o Ano</option>
+                    <option value="2016">2016</option>
+                    <option value="2017">2017</option>
+                    <option value="2018">2018</option>
+                </select>
+                
+                <label>Escolha o Grafico</label>
+                <select name="graficoDinamico" id="grafico">
+                    <option value="" selected="selected">Escolha o Grafico</option>
+                    <optgroup label="COMPRAS">
+                        <option value="9">9 - IQF - Indicador de Qualificação do Fornecedor</option>
+                    </optgroup>
+                    <optgroup label="MANUTENÇÃO">
+                        <option value="10">10 - IDEP - Indicador de Indisponibilidade de Equipamentos de Produção</option>
+                    </optgroup>
+                    <optgroup label="PRODUÇÃO">
+                        <option value="11">11 - IMP - Indicador Médio Produtividade</option>
+                    </optgroup>                                        
+                    <optgroup label="QUALIDADE">                        
+                        <option value="2">2 - IRC - Indicador de Reclamação de Cliente</option>                        
+                        <option value="3">3 - RAC - Relatorio de atendimento ao Cliente</option>
+                        <option value="4">4 - INCA - Indicador de Não Conformidade de Auditorias Internas</option>                                                                                                                                                                
+                        <option value="5">5 - IALA - Indicador de Atendimento as Legislações Aplicáveis</option>
+                        <option value="6">6 - IDC - Indicador de Devolução de Clientes</option>                                                                        
+                    </optgroup>
+                    <optgroup label="RH">
+                        <option value="7">7 - ITF - Indicador de Treinamentos Eficazes</option>
+                        <option value="8">8 - IA - Indicador de Absenteísmo</option>
+                    </optgroup>
+                    <optgroup label="VENDAS">
+                        <option value="1" >1 - ISC - Indice de Satisfação de Cliente</option>
+                    </optgroup>
+                </select>
+                <input type="submit" value="Gerar" name="geraGrafico" id="geraGrafico" />
+            </form>
+    </body>
+</html>
