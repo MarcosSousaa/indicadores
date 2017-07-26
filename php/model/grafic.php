@@ -4,132 +4,159 @@
         private $grafic = array();
         private $linha1 = array();
         private $linha2 = array();
+        
                 
         public function geraGrafico(){
             $ano = $_SESSION['ano'];
-            $tipo = $_SESSION['tipo'];            
-            $mysql = new db();
+            $tipo = $_SESSION['tipo'];                        
             $linha = 1;
-            $listaDados = $mysql->sql_query("SELECT INDICADORES.DESCRICAO,DADOS.MES01, DADOS.MES02, DADOS.MES03, DADOS.MES04, DADOS.MES05, DADOS.MES06, DADOS.MES07, DADOS.MES08, DADOS.MES09, DADOS.MES10, DADOS.MES11, DADOS.MES12, GRAFICO.META_GRAFICO,GRAFICO.NOME_GRAFICO,GRAFICO.DESCRICAO_GRAFICO FROM DADOS INNER JOIN INDICADORES ON DADOS.ID_INDICADORES_FK = INDICADORES.ID_INDICADORES INNER JOIN GRAFICO ON DADOS.ID_GRAFICO_FK = GRAFICO.ID_GRAFICO WHERE ID_GRAFICO =". $tipo. " AND DADOS.ANO =".$ano."");    // NUMERO DE CLIENTES PESQUISADOS                
+            $mysql = new db();
+            $listaDados = $mysql->sql_query("SELECT INDICADORES.DESCRICAO,DADOS_MENSAL.MES01, DADOS_MENSAL.MES02, DADOS_MENSAL.MES03, DADOS_MENSAL.MES04, DADOS_MENSAL.MES05, DADOS_MENSAL.MES06, DADOS_MENSAL.MES07, DADOS_MENSAL.MES08, DADOS_MENSAL.MES09, DADOS_MENSAL.MES10, DADOS_MENSAL.MES11, DADOS_MENSAL.MES12, GRAFICO.META_GRAFICO,GRAFICO.NOME_GRAFICO,GRAFICO.DESCRICAO_GRAFICO FROM DADOS_MENSAL INNER JOIN INDICADORES ON DADOS_MENSAL.ID_INDICADORES_FK = INDICADORES.ID_INDICADORES INNER JOIN GRAFICO ON DADOS_MENSAL.ID_GRAFICO_FK = GRAFICO.ID_GRAFICO WHERE ID_GRAFICO =". $tipo. " AND DADOS_MENSAL.ANO =".$ano."");    // NUMERO DE CLIENTES PESQUISADOS                
             if(mysql_num_rows($listaDados)> 0){
                 while($dados = mysql_fetch_object($listaDados)){                
                     switch($linha){
                         case 1:
                             $this->linha1[0][0] = $this->dados->DESCRICAO_GRAFICO;
+                            $this->linha1[0][1] = $this->dados->META_GRAFICO;
                             $this->linha1[1][0] = "Janeiro";
-                            $this->linha1[1][1] = $this->dados->MES01;
-                            $this->linha1[1][2] = $this->dados->META_GRAFICO;
+                            $this->linha1[1][1] = $this->dados->MES01;                            
                             $this->linha1[2][0] = "Fevereiro";
-                            $this->linha1[2][1] = $this->dados->MES02;
-                            $this->linha1[2][2] = $this->dados->META_GRAFICO;
+                            $this->linha1[2][1] = $this->dados->MES02;                            
                             $this->linha1[3][0] = "Março";
-                            $this->linha1[3][1] = $this->dados->MES03;
-                            $this->linha1[3][2] = $this->dados->META_GRAFICO;
+                            $this->linha1[3][1] = $this->dados->MES03;                            
                             $this->linha1[4][0] = "Abril";
-                            $this->linha1[4][1] = $this->dados->MES04;
-                            $this->linha1[4][2] = $this->dados->META_GRAFICO;
+                            $this->linha1[4][1] = $this->dados->MES04;                            
                             $this->linha1[5][0] = "Maio";
-                            $this->linha1[5][1] = $this->dados->MES05;
-                            $this->linha1[5][2] = $this->dados->META_GRAFICO;
+                            $this->linha1[5][1] = $this->dados->MES05;                            
                             $this->linha1[6][0] = "Junho";
-                            $this->linha1[6][1] = $this->dados->MES06;
-                            $this->linha1[6][2] = $this->dados->META_GRAFICO;
+                            $this->linha1[6][1] = $this->dados->MES06;                            
                             $this->linha1[7][0] = "Julho";
-                            $this->linha1[7][1] = $this->dados->MES07;
-                            $this->linha1[7][2] = $this->dados->META_GRAFICO;
+                            $this->linha1[7][1] = $this->dados->MES07;                            
                             $this->linha1[8][0] = "Agosto";
-                            $this->linha1[8][1] = $this->dados->MES08;
-                            $this->linha1[8][2] = $this->dados->META_GRAFICO;
+                            $this->linha1[8][1] = $this->dados->MES08;                            
                             $this->linha1[9][0] = "Setembro";
-                            $this->linha1[9][1] = $this->dados->MES09;
-                            $this->linha1[9][2] = $this->dados->META_GRAFICO;
+                            $this->linha1[9][1] = $this->dados->MES09;                            
                             $this->linha1[10][0] = "Outubro";
-                            $this->linha1[10][1] = $this->dados->MES10;
-                            $this->linha1[10][2] = $this->dados->META_GRAFICO;
+                            $this->linha1[10][1] = $this->dados->MES10;                            
                             $this->linha1[11][0] = "Novembro";
-                            $this->linha1[11][1] = $this->dados->MES11;
-                            $this->linha1[11][2] = $this->dados->META_GRAFICO;
+                            $this->linha1[11][1] = $this->dados->MES11;                            
                             $this->linha1[12][0] = "Dezembro";
-                            $this->linha1[12][1] = $this->dados->MES12;
-                            $this->linha1[12][2] = $this->dados->META_GRAFICO;                
-                            $this->linha1[0][0] = $this->dados->DESCRICAO_GRAFICO;
+                            $this->linha1[12][1] = $this->dados->MES12;                            
                     }
                     $linha = $linha + 1;
                 }
                 // NOME GRAFICO
                 $this->grafic[0][0] = $this->linha1[0][0];
-                // NOME DO MÊS JANEIRO
-                $this->grafic[1][0] = $this->linha1[1][0];
+                //META GRAFICO
+                $this->grafic[0][1] = $this->linha1[0][1];
+                // NOME DO MÊS JANEIRO                
+                $this->grafic[1][0] = $this->linha1[1][0];                                                                  
                 // DADOS GRAFICO JANEIRO
-                $this->grafic[1][1] =  $this->linha1[1][1];
-                // META GRAFICO
-                $this->grafic[1][2] = $this->linha1[1][2];
+                if($this->linha1[1][1] == 0){
+                    $this->grafic[1][1] = 0;
+                }
+                else {
+                    $this->grafic[1][1] =  $this->linha1[1][1];
+                }                
                 // NOME DO MÊS FEVEREIRO
                 $this->grafic[2][0] = $this->linha1[2][0];
-                // DADOS GRAFICO FEVEREIRO
-                $this->grafic[2][1] =  $this->linha1[2][1];
-                // META GRAFICO
-                $this->grafic[2][2] = $this->linha1[2][2];
+                // DADOS GRAFICO FEVEREIRO                
+                if($this->linha1[2][1] == 0){
+                    $this->grafic[2][1] = 0;
+                }
+                else {
+                    $this->grafic[2][1] =  $this->linha1[2][1];
+                }                                
                 // NOME DO MÊS MARÇO
                 $this->grafic[3][0] = $this->linha1[3][0];
-                // DADOS GRAFICO MARÇO
-                $this->grafic[3][1] =  $this->linha1[3][1];
-                // META GRAFICO
-                $this->grafic[3][2] = $this->linha1[3][2];
+                // DADOS GRAFICO MARÇO  
+                if($this->linha1[3][1] == 0){
+                    $this->grafic[3][1] = 0;
+                }
+                else {
+                    $this->grafic[3][1] =  $this->linha1[3][1];
+                }                              
                 // NOME DO MÊS ABRIL
                 $this->grafic[4][0] = $this->linha1[4][0];
-                // DADOS GRAFICO ABRIL
-                $this->grafic[4][1] =  $this->linha1[4][1];
-                // META GRAFICO
-                $this->grafic[4][2] = $this->linha1[4][2];
+                // DADOS GRAFICO ABRIL 
+                if($this->linha1[4][1] == 0){
+                    $this->grafic[4][1] = 0;
+                }
+                else {
+                    $this->grafic[4][1] =  $this->linha1[4][1];
+                }                                
                 // NOME DO MÊS MAIO
                 $this->grafic[5][0] = $this->linha1[5][0];
-                // DADOS GRAFICO MAIO
-                $this->grafic[5][1] =  $this->linha1[5][1];
-                // META GRAFICO
-                $this->grafic[5][2] = $this->linha1[5][2];
+                // DADOS GRAFICO MAIO 
+                if($this->linha1[5][1] == 0){
+                    $this->grafic[5][1] = 0;
+                }
+                else {
+                    $this->grafic[5][1] =  $this->linha1[5][1];
+                }                               
                 // NOME DO MÊS JUNHO
                 $this->grafic[6][0] = $this->linha1[6][0];
-                // DADOS GRAFICO JUNHO
-                $this->grafic[6][1] =  $this->linha1[6][1];
-                // META GRAFICO
-                $this->grafic[6][2] = $this->linha1[6][2];
+                // DADOS GRAFICO JUNHO    
+                if($this->linha1[6][1] == 0){
+                    $this->grafic[6][1] = 0;
+                }
+                else {
+                    $this->grafic[6][1] =  $this->linha1[6][1];
+                }                            
                 // NOME DO MÊS JULHO
                 $this->grafic[7][0] = $this->linha1[7][0];
-                // DADOS GRAFICO JULHO
-                $this->grafic[7][1] =  $this->linha1[7][1];
-                // META GRAFICO
-                $this->grafic[7][2] = $this->linha1[7][2];
+                // DADOS GRAFICO JULHO   
+                if($this->linha1[7][1] == 0){
+                    $this->grafic[7][1] = 0;
+                }
+                else {
+                    $this->grafic[7][1] =  $this->linha1[7][1];
+                }                             
                 // NOME DO MÊS AGOSTO
                 $this->grafic[8][0] = $this->linha1[8][0];
                 // DADOS GRAFICO AGOSTO
-                $this->grafic[8][1] =  $this->linha1[8][1];
-                // META GRAFICO
-                $this->grafic[8][2] = $linha1[8][2];
+                if($this->linha1[8][1] == 0){
+                    $this->grafic[8][1] = 0;
+                }
+                else {
+                    $this->grafic[8][1] =  $this->linha1[8][1];
+                }                                
                 // NOME DO MÊS SETEMBRO
                 $this->grafic[9][0] = $this->linha1[9][0];
                 // DADOS GRAFICO SETEMBRO
-                $this->grafic[9][1] =  $this->linha1[9][1];
-                // META GRAFICO
-                $this->grafic[9][2] = $this->linha1[9][2];
+                if($this->linha1[9][1] == 0){
+                    $this->grafic[9][1] = 0;
+                }
+                else {
+                    $this->grafic[9][1] =  $this->linha1[9][1];
+                }                                
                 // NOME DO MÊS OUTUBRO
                 $this->grafic[10][0] = $this->linha1[10][0];
-                // DADOS GRAFICO OUTUBRO
-                $this->grafic[10][1] =  $this->linha1[10][1];
-                // META GRAFICO
-                $this->grafic[10][2] = $this->linha1[10][2];
+                // DADOS GRAFICO OUTUBRO                
+                if($this->linha1[10][1] == 0){
+                    $this->grafic[10][1] = 0;
+                }
+                else {
+                    $this->grafic[10][1] =  $this->linha1[10][1];
+                }                
                 // NOME DO MÊS NOVEMBRO
                 $this->grafic[11][0] = $this->linha1[11][0];
                 // DADOS GRAFICO NOVEMBRO
-                $this->grafic[11][1] =  $this->linha1[11][1];
-                // META GRAFICO
-                $this->grafic[11][2] = $this->linha1[11][2];
+                if($this->linha1[11][1] == 0){
+                    $this->grafic[11][1] = 0;
+                }
+                else {
+                    $this->grafic[11][1] =  $this->linha1[11][1];
+                }                                
                 // NOME DO MÊS DEZEMBRO
                 $this->grafic[12][0] = $this->linha1[12][0];
                 // DADOS GRAFICO DEZEMBRO
-                $this->grafic[12][1] =  $this->linha1[12][1];
-                // META GRAFICO
-                $this->grafic[12][2] = $this->linha1[12][2];
+                 if($this->linha1[12][1] == 0){
+                    $this->grafic[12][1] = 0;
+                }
+                else {
+                    $this->grafic[12][1] =  $this->linha1[12][1];
+                }                
                 $_SESSION['array'] = $grafic;
             }
             else{
