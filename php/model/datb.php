@@ -1,15 +1,15 @@
 <?php
-class db{
-        // Coloque aqui as Informações do Banco de Dados
-     private $host = "localhost";
-     private $user = "root"; # Usuário no Host/Servidor
-     private $senha = "admin"; # Senha no Host/Servidor
-     private $dbase = "indicadores"; # Nome do seu Banco de Dados
+class db {
+    // Coloque aqui as Informações do Banco de Dados
+     var $host = "localhost";
+     var $user = "root"; # Usuário no Host/Servidor
+     var $senha = "admin"; # Senha no Host/Servidor
+     var $dbase = "indicadores"; # Nome do seu Banco de Dados
 
     // Cria as variáveis que Utilizaremos
-     private $query;
-     private $link;
-     private $resultado;
+     var $query;
+     var $link;
+     var $resultado;
     
     function MySQL(){
         // Instancia o Objeto para usarmos
@@ -39,7 +39,7 @@ class db{
         $this->conecta();
         $this->query = $query;
         // Conecta e faz a query no MySQL
-        if($this->resultado == mysql_query($this->query)){
+        if($this->resultado = mysql_query($this->query)){
             $this->desconecta();
             return $this->resultado;
         }else{
@@ -57,5 +57,4 @@ class db{
         mysql_close($this->link);
     }
 }
-
-
+?>

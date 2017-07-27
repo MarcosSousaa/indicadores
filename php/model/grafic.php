@@ -1,162 +1,162 @@
 <?php
-    include 'datb.php';     
-    class Grafico{        
-        private $grafic = array();
-        private $linha1 = array();
-        private $linha2 = array();
+    include 'datb.php';
         
+    class Grafico{        
+        var $grafic = array();
+        var $linha1 = array();
+        var $linha2 = array();
                 
         public function geraGrafico(){
             $ano = $_SESSION['ano'];
-            $tipo = $_SESSION['tipo'];                        
-            $linha = 1;
+            $tipo = $_SESSION['tipo'];            
             $mysql = new db();
-            $listaDados = $mysql->sql_query("SELECT INDICADORES.DESCRICAO,DADOS_MENSAL.MES01, DADOS_MENSAL.MES02, DADOS_MENSAL.MES03, DADOS_MENSAL.MES04, DADOS_MENSAL.MES05, DADOS_MENSAL.MES06, DADOS_MENSAL.MES07, DADOS_MENSAL.MES08, DADOS_MENSAL.MES09, DADOS_MENSAL.MES10, DADOS_MENSAL.MES11, DADOS_MENSAL.MES12, GRAFICO.META_GRAFICO,GRAFICO.NOME_GRAFICO,GRAFICO.DESCRICAO_GRAFICO FROM DADOS_MENSAL INNER JOIN INDICADORES ON DADOS_MENSAL.ID_INDICADORES_FK = INDICADORES.ID_INDICADORES INNER JOIN GRAFICO ON DADOS_MENSAL.ID_GRAFICO_FK = GRAFICO.ID_GRAFICO WHERE ID_GRAFICO =". $tipo. " AND DADOS_MENSAL.ANO =".$ano."");    // NUMERO DE CLIENTES PESQUISADOS                
+            $linha = 1;            
+            $listaDados = $mysql->sql_query("SELECT INDICADORES.DESCRICAO,DADOS_MENSAL.MES01, DADOS_MENSAL.MES02, DADOS_MENSAL.MES03, DADOS_MENSAL.MES04, DADOS_MENSAL.MES05, DADOS_MENSAL.MES06, DADOS_MENSAL.MES07, DADOS_MENSAL.MES08, DADOS_MENSAL.MES09, DADOS_MENSAL.MES10, DADOS_MENSAL.MES11, DADOS_MENSAL.MES12, GRAFICO.META_GRAFICO,GRAFICO.NOME_GRAFICO,GRAFICO.DESCRICAO_GRAFICO FROM DADOS_MENSAL INNER JOIN INDICADORES ON DADOS_MENSAL.ID_INDICADORES_FK = INDICADORES.ID_INDICADORES INNER JOIN GRAFICO ON DADOS_MENSAL.ID_GRAFICO_FK = GRAFICO.ID_GRAFICO WHERE GRAFICO.ID_GRAFICO =". $tipo. " AND DADOS_MENSAL.ANO =".$ano."");    // NUMERO DE CLIENTES PESQUISADOS            
             if(mysql_num_rows($listaDados)> 0){
                 while($dados = mysql_fetch_object($listaDados)){                
                     switch($linha){
                         case 1:
-                            $this->linha1[0][0] = $this->dados->DESCRICAO_GRAFICO;
-                            $this->linha1[0][1] = $this->dados->META_GRAFICO;
-                            $this->linha1[1][0] = "Janeiro";
-                            $this->linha1[1][1] = $this->dados->MES01;                            
-                            $this->linha1[2][0] = "Fevereiro";
-                            $this->linha1[2][1] = $this->dados->MES02;                            
-                            $this->linha1[3][0] = "Março";
-                            $this->linha1[3][1] = $this->dados->MES03;                            
-                            $this->linha1[4][0] = "Abril";
-                            $this->linha1[4][1] = $this->dados->MES04;                            
-                            $this->linha1[5][0] = "Maio";
-                            $this->linha1[5][1] = $this->dados->MES05;                            
-                            $this->linha1[6][0] = "Junho";
-                            $this->linha1[6][1] = $this->dados->MES06;                            
-                            $this->linha1[7][0] = "Julho";
-                            $this->linha1[7][1] = $this->dados->MES07;                            
-                            $this->linha1[8][0] = "Agosto";
-                            $this->linha1[8][1] = $this->dados->MES08;                            
-                            $this->linha1[9][0] = "Setembro";
-                            $this->linha1[9][1] = $this->dados->MES09;                            
-                            $this->linha1[10][0] = "Outubro";
-                            $this->linha1[10][1] = $this->dados->MES10;                            
-                            $this->linha1[11][0] = "Novembro";
-                            $this->linha1[11][1] = $this->dados->MES11;                            
-                            $this->linha1[12][0] = "Dezembro";
-                            $this->linha1[12][1] = $this->dados->MES12;                            
+                            $linha1[0][0] = $dados->DESCRICAO_GRAFICO;
+                            $linha1[0][1] = $dados->META_GRAFICO;
+                            $linha1[1][0] = "Janeiro";
+                            $linha1[1][1] = $dados->MES01;                            
+                            $linha1[2][0] = "Fevereiro";
+                            $linha1[2][1] = $dados->MES02;                            
+                            $linha1[3][0] = "Março";
+                            $linha1[3][1] = $dados->MES03;                            
+                            $linha1[4][0] = "Abril";
+                            $linha1[4][1] = $dados->MES04;                            
+                            $linha1[5][0] = "Maio";
+                            $linha1[5][1] = $dados->MES05;                            
+                            $linha1[6][0] = "Junho";
+                            $linha1[6][1] = $dados->MES06;                            
+                            $linha1[7][0] = "Julho";
+                            $linha1[7][1] = $dados->MES07;                            
+                            $linha1[8][0] = "Agosto";
+                            $linha1[8][1] = $dados->MES08;                            
+                            $linha1[9][0] = "Setembro";
+                            $linha1[9][1] = $dados->MES09;                            
+                            $linha1[10][0] = "Outubro";
+                            $linha1[10][1] = $dados->MES10;                            
+                            $linha1[11][0] = "Novembro";
+                            $linha1[11][1] = $dados->MES11;                            
+                            $linha1[12][0] = "Dezembro";
+                            $linha1[12][1] = $dados->MES12;                                                        
                     }
                     $linha = $linha + 1;
                 }
-                // NOME GRAFICO
-                $this->grafic[0][0] = $this->linha1[0][0];
+               // NOME GRAFICO
+                $grafic[0][0] = $linha1[0][0];
                 //META GRAFICO
-                $this->grafic[0][1] = $this->linha1[0][1];
+                $grafic[0][1] = $linha1[0][1];
                 // NOME DO MÊS JANEIRO                
-                $this->grafic[1][0] = $this->linha1[1][0];                                                                  
+                $grafic[1][0] = $linha1[1][0];                                                                  
                 // DADOS GRAFICO JANEIRO
-                if($this->linha1[1][1] == 0){
-                    $this->grafic[1][1] = 0;
+                if($linha1[1][1] == 0){
+                    $grafic[1][1] = 0;
                 }
                 else {
-                    $this->grafic[1][1] =  $this->linha1[1][1];
+                    $grafic[1][1] =  $linha1[1][1];
                 }                
                 // NOME DO MÊS FEVEREIRO
-                $this->grafic[2][0] = $this->linha1[2][0];
+                $grafic[2][0] = $linha1[2][0];
                 // DADOS GRAFICO FEVEREIRO                
-                if($this->linha1[2][1] == 0){
-                    $this->grafic[2][1] = 0;
+                if($linha1[2][1] == 0){
+                    $grafic[2][1] = 0;
                 }
                 else {
-                    $this->grafic[2][1] =  $this->linha1[2][1];
+                    $grafic[2][1] =  $linha1[2][1];
                 }                                
                 // NOME DO MÊS MARÇO
-                $this->grafic[3][0] = $this->linha1[3][0];
+                $grafic[3][0] = $linha1[3][0];
                 // DADOS GRAFICO MARÇO  
-                if($this->linha1[3][1] == 0){
-                    $this->grafic[3][1] = 0;
+                if($linha1[3][1] == 0){
+                    $grafic[3][1] = 0;
                 }
                 else {
-                    $this->grafic[3][1] =  $this->linha1[3][1];
+                    $grafic[3][1] =  $linha1[3][1];
                 }                              
                 // NOME DO MÊS ABRIL
-                $this->grafic[4][0] = $this->linha1[4][0];
+                $grafic[4][0] = $linha1[4][0];
                 // DADOS GRAFICO ABRIL 
-                if($this->linha1[4][1] == 0){
-                    $this->grafic[4][1] = 0;
+                if($linha1[4][1] == 0){
+                    $grafic[4][1] = 0;
                 }
                 else {
-                    $this->grafic[4][1] =  $this->linha1[4][1];
+                    $grafic[4][1] =  $linha1[4][1];
                 }                                
                 // NOME DO MÊS MAIO
-                $this->grafic[5][0] = $this->linha1[5][0];
+                $grafic[5][0] = $linha1[5][0];
                 // DADOS GRAFICO MAIO 
-                if($this->linha1[5][1] == 0){
-                    $this->grafic[5][1] = 0;
+                if($linha1[5][1] == 0){
+                    $grafic[5][1] = 0;
                 }
                 else {
-                    $this->grafic[5][1] =  $this->linha1[5][1];
+                    $grafic[5][1] =  $linha1[5][1];
                 }                               
                 // NOME DO MÊS JUNHO
-                $this->grafic[6][0] = $this->linha1[6][0];
+                $grafic[6][0] = $linha1[6][0];
                 // DADOS GRAFICO JUNHO    
-                if($this->linha1[6][1] == 0){
-                    $this->grafic[6][1] = 0;
+                if($linha1[6][1] == 0){
+                    $grafic[6][1] = 0;
                 }
                 else {
-                    $this->grafic[6][1] =  $this->linha1[6][1];
+                    $grafic[6][1] =  $linha1[6][1];
                 }                            
                 // NOME DO MÊS JULHO
-                $this->grafic[7][0] = $this->linha1[7][0];
+                $grafic[7][0] = $linha1[7][0];
                 // DADOS GRAFICO JULHO   
-                if($this->linha1[7][1] == 0){
-                    $this->grafic[7][1] = 0;
+                if($linha1[7][1] == 0){
+                    $grafic[7][1] = 0;
                 }
                 else {
-                    $this->grafic[7][1] =  $this->linha1[7][1];
+                    $grafic[7][1] =  $linha1[7][1];
                 }                             
                 // NOME DO MÊS AGOSTO
-                $this->grafic[8][0] = $this->linha1[8][0];
+                $grafic[8][0] = $linha1[8][0];
                 // DADOS GRAFICO AGOSTO
-                if($this->linha1[8][1] == 0){
-                    $this->grafic[8][1] = 0;
+                if($linha1[8][1] == 0){
+                    $grafic[8][1] = 0;
                 }
                 else {
-                    $this->grafic[8][1] =  $this->linha1[8][1];
+                    $grafic[8][1] =  $linha1[8][1];
                 }                                
                 // NOME DO MÊS SETEMBRO
-                $this->grafic[9][0] = $this->linha1[9][0];
+                $grafic[9][0] = $linha1[9][0];
                 // DADOS GRAFICO SETEMBRO
-                if($this->linha1[9][1] == 0){
-                    $this->grafic[9][1] = 0;
+                if($linha1[9][1] == 0){
+                    $grafic[9][1] = 0;
                 }
                 else {
-                    $this->grafic[9][1] =  $this->linha1[9][1];
+                    $grafic[9][1] =  $linha1[9][1];
                 }                                
                 // NOME DO MÊS OUTUBRO
-                $this->grafic[10][0] = $this->linha1[10][0];
+                $grafic[10][0] = $linha1[10][0];
                 // DADOS GRAFICO OUTUBRO                
-                if($this->linha1[10][1] == 0){
-                    $this->grafic[10][1] = 0;
+                if($linha1[10][1] == 0){
+                    $grafic[10][1] = 0;
                 }
                 else {
-                    $this->grafic[10][1] =  $this->linha1[10][1];
+                    $grafic[10][1] =  $linha1[10][1];
                 }                
                 // NOME DO MÊS NOVEMBRO
-                $this->grafic[11][0] = $this->linha1[11][0];
+                $grafic[11][0] = $linha1[11][0];
                 // DADOS GRAFICO NOVEMBRO
-                if($this->linha1[11][1] == 0){
-                    $this->grafic[11][1] = 0;
+                if($linha1[11][1] == 0){
+                    $grafic[11][1] = 0;
                 }
                 else {
-                    $this->grafic[11][1] =  $this->linha1[11][1];
+                    $grafic[11][1] =  $linha1[11][1];
                 }                                
                 // NOME DO MÊS DEZEMBRO
-                $this->grafic[12][0] = $this->linha1[12][0];
+                $grafic[12][0] = $linha1[12][0];
                 // DADOS GRAFICO DEZEMBRO
-                 if($this->linha1[12][1] == 0){
-                    $this->grafic[12][1] = 0;
+                 if($linha1[12][1] == 0){
+                    $grafic[12][1] = 0;
                 }
                 else {
-                    $this->grafic[12][1] =  $this->linha1[12][1];
-                }                
+                    $grafic[12][1] =  $linha1[12][1];
+                }                   
                 $_SESSION['array'] = $grafic;
             }
             else{
@@ -230,7 +230,11 @@
                             $linha2[12][1] = $dados->MES12;    
                     }
                     $linha = $linha + 1;
-                }                                   
+                }                       
+            
+                // CALCULO QUE FAZ ANTES DE GERAR O GRAFICO	
+                // 	
+                // NOME GRAFICO
                 $grafic[0][0] = $linha1[0][0];
                 // NOME DO MÊS JANEIRO
                 $grafic[1][0] = $linha1[1][0];
@@ -378,7 +382,8 @@
             $tipo = $_SESSION['tipo'];            
             $mysql = new db();
             $linha = 1;
-            $listaDados = $mysql->sql_query("SELECT INDICADORES.DESCRICAO,DADOS.MES01, DADOS.MES02, DADOS.MES03, DADOS.MES04, DADOS.MES05, DADOS.MES06, DADOS.MES07, DADOS.MES08, DADOS.MES09, DADOS.MES10, DADOS.MES11, DADOS.MES12, GRAFICO.META_GRAFICO,GRAFICO.NOME_GRAFICO,GRAFICO.DESCRICAO_GRAFICO FROM DADOS INNER JOIN INDICADORES ON DADOS.ID_INDICADORES_FK = INDICADORES.ID_INDICADORES INNER JOIN GRAFICO ON DADOS.ID_GRAFICO_FK = GRAFICO.ID_GRAFICO WHERE ID_GRAFICO =". $tipo. " AND DADOS.ANO =".$ano."");    // NUMERO DE CLIENTES PESQUISADOS                
+            # $listaDados = $mysql->sql_query("SELECT INDICADORES.DESCRICAO,DADOS.MES01, DADOS.MES02, DADOS.MES03, DADOS.MES04, DADOS.MES05, DADOS.MES06, DADOS.MES07, DADOS.MES08, DADOS.MES09, DADOS.MES10, DADOS.MES11, DADOS.MES12, GRAFICO.META_GRAFICO,GRAFICO.NOME_GRAFICO,GRAFICO.DESCRICAO_GRAFICO FROM DADOS INNER JOIN INDICADORES ON DADOS.ID_INDICADORES_FK = INDICADORES.ID_INDICADORES INNER JOIN GRAFICO ON DADOS.ID_GRAFICO_FK = GRAFICO.ID_GRAFICO WHERE ID_GRAFICO =". $tipo. " AND DADOS.ANO =".$ano."");    // NUMERO DE CLIENTES PESQUISADOS                
+            $listaDados = $mysql->sql_query("SELECT INDICADORES.DESCRICAO,DADOS_MENSAL.MES01, DADOS_MENSAL.MES02, DADOS_MENSAL.MES03, DADOS_MENSAL.MES04, DADOS_MENSAL.MES05, DADOS_MENSAL.MES06, DADOS_MENSAL.MES07, DADOS_MENSAL.MES08, DADOS_MENSAL.MES09, DADOS_MENSAL.MES10, DADOS_MENSAL.MES11, DADOS_MENSAL.MES12, GRAFICO.META_GRAFICO,GRAFICO.NOME_GRAFICO,GRAFICO.DESCRICAO_GRAFICO FROM DADOS_MENSAL INNER JOIN INDICADORES ON DADOS_MENSAL.ID_INDICADORES_FK = INDICADORES.ID_INDICADORES INNER JOIN GRAFICO ON DADOS_MENSAL.ID_GRAFICO_FK = GRAFICO.ID_GRAFICO WHERE GRAFICO.ID_GRAFICO =". $tipo. " AND DADOS_MENSAL.ANO =".$ano."");    // NUMERO DE CLIENTES PESQUISADOS            
             if(mysql_num_rows($listaDados)> 0){
                 while($dados = mysql_fetch_object($listaDados)){                
                     switch($linha){
